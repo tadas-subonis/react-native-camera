@@ -686,7 +686,9 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
      */
     @Override
     public void onHostResume() {
-        // ... do nothing
+        if (mCamera != null) {
+            mCamera.startPreview();
+        }
     }
 
     @Override
@@ -694,6 +696,9 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
         // On pause, we stop any pending recording session
         if (mRecordingPromise != null) {
             releaseMediaRecorder();
+        }
+        if (mCamera != null) {
+            mCamera.stopPreview();
         }
     }
 
